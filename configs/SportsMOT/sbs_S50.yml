@@ -1,0 +1,34 @@
+_BASE_: ../Base-SBS.yml
+
+MODEL:
+  BACKBONE:
+    NAME: build_resnest_backbone
+  #WEIGHTS: "/home/wj/ai/work/BoT-SORT/weights/mot17_sbs_S50.pth"
+  WEIGHTS: "/home/wj/ai/mldata1/SportsMOT-2022-4-24/fast_reid/logs/sbs_S50/model_0032.pth"
+  DEVICE: "cuda:0"
+
+SOLVER:
+  AMP:
+    ENABLED: True
+  OPT: Adam
+  MAX_EPOCH: 60
+  BASE_LR: 0.00035
+  WEIGHT_DECAY: 0.0005
+  IMS_PER_BATCH: 160
+
+  SCHED: CosineAnnealingLR
+  DELAY_EPOCHS: 30
+  ETA_MIN_LR: 0.0000007
+
+  WARMUP_FACTOR: 0.1
+  WARMUP_ITERS: 2000
+
+  FREEZE_ITERS: 1000
+
+  CHECKPOINT_PERIOD: 1
+
+DATASETS:
+  NAMES: ("MOT20",)
+  TESTS: ("MOT20",)
+
+OUTPUT_DIR: /home/wj/ai/mldata1/SportsMOT-2022-4-24/fast_reid/logs/sbs_S50
